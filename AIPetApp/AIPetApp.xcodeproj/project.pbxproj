@@ -1,0 +1,415 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+	/* Begin PBXBuildFile section */
+		A10000000000000000000100 /* AIPetAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000020 /* AIPetAppApp.swift */; };
+		A10000000000000000000101 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000030 /* Home.swift */; };
+		A10000000000000000000102 /* Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000031 /* Interaction.swift */; };
+		A10000000000000000000103 /* PersonalityDNA.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000032 /* PersonalityDNA.swift */; };
+		A10000000000000000000104 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000033 /* Pet.swift */; };
+		A10000000000000000000105 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000040 /* AnalyticsService.swift */; };
+		A10000000000000000000106 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000041 /* AuthService.swift */; };
+		A10000000000000000000107 /* ImageStyleTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000042 /* ImageStyleTransferService.swift */; };
+		A10000000000000000000108 /* ImageToAvatarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000043 /* ImageToAvatarService.swift */; };
+		A10000000000000000000109 /* LLMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000044 /* LLMService.swift */; };
+		A1000000000000000000010A /* PhotoDNABuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000045 /* PhotoDNABuilder.swift */; };
+		A1000000000000000000010B /* SystemPromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000046 /* SystemPromptBuilder.swift */; };
+		A1000000000000000000010C /* AIPetPlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000050 /* AIPetPlusView.swift */; };
+		A1000000000000000000010D /* ChatInterfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000051 /* ChatInterfaceView.swift */; };
+		A1000000000000000000010E /* ImportPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000052 /* ImportPetView.swift */; };
+		A1000000000000000000010F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000053 /* LoginView.swift */; };
+		A10000000000000000000110 /* PersonalityRadarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000054 /* PersonalityRadarView.swift */; };
+		A10000000000000000000111 /* PetHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000055 /* PetHomeView.swift */; };
+		A10000000000000000000112 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000056 /* RootView.swift */; };
+		A10000000000000000000113 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000057 /* SettingsView.swift */; };
+		A10000000000000000000114 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000058 /* CalendarService.swift */; };
+		A10000000000000000000115 /* VoiceInteractionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000059 /* VoiceInteractionService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A10000000000000000000010 /* AIPetApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIPetApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000020 /* AIPetAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPetAppApp.swift; sourceTree = "<group>"; };
+		A10000000000000000000030 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		A10000000000000000000031 /* Interaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interaction.swift; sourceTree = "<group>"; };
+		A10000000000000000000032 /* PersonalityDNA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityDNA.swift; sourceTree = "<group>"; };
+		A10000000000000000000033 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		A10000000000000000000040 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		A10000000000000000000041 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A10000000000000000000042 /* ImageStyleTransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStyleTransferService.swift; sourceTree = "<group>"; };
+		A10000000000000000000043 /* ImageToAvatarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageToAvatarService.swift; sourceTree = "<group>"; };
+		A10000000000000000000044 /* LLMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMService.swift; sourceTree = "<group>"; };
+		A10000000000000000000045 /* PhotoDNABuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDNABuilder.swift; sourceTree = "<group>"; };
+		A10000000000000000000046 /* SystemPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPromptBuilder.swift; sourceTree = "<group>"; };
+		A10000000000000000000050 /* AIPetPlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPetPlusView.swift; sourceTree = "<group>"; };
+		A10000000000000000000051 /* ChatInterfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInterfaceView.swift; sourceTree = "<group>"; };
+		A10000000000000000000052 /* ImportPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportPetView.swift; sourceTree = "<group>"; };
+		A10000000000000000000053 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A10000000000000000000054 /* PersonalityRadarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityRadarView.swift; sourceTree = "<group>"; };
+		A10000000000000000000055 /* PetHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetHomeView.swift; sourceTree = "<group>"; };
+		A10000000000000000000056 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		A10000000000000000000057 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A10000000000000000000058 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
+		A10000000000000000000059 /* VoiceInteractionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceInteractionService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A10000000000000000000006 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000000000000000000003 = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000020 /* AIPetAppApp.swift */,
+				A10000000000000000000060 /* Models */,
+				A10000000000000000000070 /* Services */,
+				A10000000000000000000080 /* Views */,
+				A10000000000000000000004 /* Products */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+		};
+		A10000000000000000000004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000010 /* AIPetApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000060 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000030 /* Home.swift */,
+				A10000000000000000000031 /* Interaction.swift */,
+				A10000000000000000000032 /* PersonalityDNA.swift */,
+				A10000000000000000000033 /* Pet.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000070 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000040 /* AnalyticsService.swift */,
+				A10000000000000000000041 /* AuthService.swift */,
+				A10000000000000000000042 /* ImageStyleTransferService.swift */,
+				A10000000000000000000043 /* ImageToAvatarService.swift */,
+				A10000000000000000000044 /* LLMService.swift */,
+				A10000000000000000000045 /* PhotoDNABuilder.swift */,
+				A10000000000000000000046 /* SystemPromptBuilder.swift */,
+				A10000000000000000000058 /* CalendarService.swift */,
+				A10000000000000000000059 /* VoiceInteractionService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000080 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000050 /* AIPetPlusView.swift */,
+				A10000000000000000000051 /* ChatInterfaceView.swift */,
+				A10000000000000000000052 /* ImportPetView.swift */,
+				A10000000000000000000053 /* LoginView.swift */,
+				A10000000000000000000054 /* PersonalityRadarView.swift */,
+				A10000000000000000000055 /* PetHomeView.swift */,
+				A10000000000000000000056 /* RootView.swift */,
+				A10000000000000000000057 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000000000000000000002 /* AIPetApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1000000000000000000000B /* Build configuration list for PBXNativeTarget "AIPetApp" */;
+			buildPhases = (
+				A10000000000000000000005 /* Sources */,
+				A10000000000000000000006 /* Frameworks */,
+				A10000000000000000000007 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AIPetApp;
+			productName = AIPetApp;
+			productReference = A10000000000000000000010 /* AIPetApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A10000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = "";
+				TargetAttributes = {
+					A10000000000000000000002 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = A10000000000000000000008 /* Build configuration list for PBXProject "AIPetApp" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A10000000000000000000003;
+			productRefGroup = A10000000000000000000004 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000000000000000000002 /* AIPetApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000000000000000000007 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10000000000000000000005 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000100 /* AIPetAppApp.swift in Sources */,
+				A10000000000000000000101 /* Home.swift in Sources */,
+				A10000000000000000000102 /* Interaction.swift in Sources */,
+				A10000000000000000000103 /* PersonalityDNA.swift in Sources */,
+				A10000000000000000000104 /* Pet.swift in Sources */,
+				A10000000000000000000105 /* AnalyticsService.swift in Sources */,
+				A10000000000000000000106 /* AuthService.swift in Sources */,
+				A10000000000000000000107 /* ImageStyleTransferService.swift in Sources */,
+				A10000000000000000000108 /* ImageToAvatarService.swift in Sources */,
+				A10000000000000000000109 /* LLMService.swift in Sources */,
+				A1000000000000000000010A /* PhotoDNABuilder.swift in Sources */,
+				A1000000000000000000010B /* SystemPromptBuilder.swift in Sources */,
+				A1000000000000000000010C /* AIPetPlusView.swift in Sources */,
+				A1000000000000000000010D /* ChatInterfaceView.swift in Sources */,
+				A1000000000000000000010E /* ImportPetView.swift in Sources */,
+				A1000000000000000000010F /* LoginView.swift in Sources */,
+				A10000000000000000000110 /* PersonalityRadarView.swift in Sources */,
+				A10000000000000000000111 /* PetHomeView.swift in Sources */,
+				A10000000000000000000112 /* RootView.swift in Sources */,
+				A10000000000000000000113 /* SettingsView.swift in Sources */,
+				A10000000000000000000114 /* CalendarService.swift in Sources */,
+				A10000000000000000000115 /* VoiceInteractionService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A10000000000000000000009 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A1000000000000000000000A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1000000000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要访问您的位置信息以获取当地天气，帮宠物根据天气给出贴心提醒。";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "需要访问您的日历，用来读取今天的日程安排，让宠物可以帮你做贴心的日程提醒。";
+				INFOPLIST_KEY_NSRemindersUsageDescription = "需要访问您的提醒事项，用来了解今天的待办，让宠物更好地陪你规划一天。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问麦克风以支持和宠物进行实时语音对话。";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "需要使用语音识别来将你的语音转成文字，让宠物听懂你在说什么。";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AIPetApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1000000000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要访问您的位置信息以获取当地天气，帮宠物根据天气给出贴心提醒。";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "需要访问您的日历，用来读取今天的日程安排，让宠物可以帮你做贴心的日程提醒。";
+				INFOPLIST_KEY_NSRemindersUsageDescription = "需要访问您的提醒事项，用来了解今天的待办，让宠物更好地陪你规划一天。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问麦克风以支持和宠物进行实时语音对话。";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "需要使用语音识别来将你的语音转成文字，让宠物听懂你在说什么。";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AIPetApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A10000000000000000000008 /* Build configuration list for PBXProject "AIPetApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000000000000000000009 /* Debug */,
+				A1000000000000000000000A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1000000000000000000000B /* Build configuration list for PBXNativeTarget "AIPetApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000000000000000000000C /* Debug */,
+				A1000000000000000000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = A10000000000000000000001 /* Project object */;
+}
