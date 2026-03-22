@@ -4,10 +4,10 @@ WORKDIR /src
 
 RUN apk add --no-cache ca-certificates git
 
-COPY go.mod go.sum ./
+COPY AIPetServer/go.mod AIPetServer/go.sum ./
 RUN go mod download
 
-COPY . .
+COPY AIPetServer/ ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /out/aipet-server .
 
