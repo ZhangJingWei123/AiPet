@@ -19,9 +19,10 @@ struct MemoryService {
         query: String?,
         limit: Int = 8
     ) -> [MemoryEntry] {
+        let petID = pet.id
         let descriptor = FetchDescriptor<MemoryEntry>(
             predicate: #Predicate { entry in
-                entry.petID == pet.id
+                entry.petID == petID
             },
             sortBy: [
                 SortDescriptor(\.importance, order: .reverse),
@@ -128,9 +129,10 @@ struct MemoryService {
 
     /// 根据时间 + 重要度进行简单清理，避免无限膨胀。
     func cleanMemoriesIfNeeded(for pet: Pet, in context: ModelContext) {
+        let petID = pet.id
         let descriptor = FetchDescriptor<MemoryEntry>(
             predicate: #Predicate { entry in
-                entry.petID == pet.id
+                entry.petID == petID
             },
             sortBy: [
                 SortDescriptor(\.timestamp, order: .reverse)
@@ -243,4 +245,3 @@ struct MemoryService {
         }
     }
 }
-

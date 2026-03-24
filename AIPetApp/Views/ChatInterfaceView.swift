@@ -69,7 +69,7 @@ struct ChatInterfaceView: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(spacing: 8) {
-                        ForEach(displayedMessages, id: \._persistentModelID) { message in
+                        ForEach(displayedMessages, id: \.id) { message in
                             ChatBubbleView(message: message, pet: pet, audioManager: audioManager)
                                 .id(message.id)
                         }
@@ -1141,7 +1141,7 @@ private struct MemoryDetailView: View {
                     } else {
                         ForEach(memories, id: \.id) { item in
                             VStack(alignment: .leading, spacing: 6) {
-                                Text(item.createdAt, style: .date)
+                                Text(item.timestamp, style: .date)
                                     .font(.caption2)
                                     .foregroundStyle(.secondary)
 

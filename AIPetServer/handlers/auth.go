@@ -66,9 +66,11 @@ func AppleLoginHandler(jwtSecret string) app.HandlerFunc {
 		if err := db.Where("apple_id = ?", claims.Sub).First(&user).Error; err != nil {
             // 不存在则自动注册
             user = models.User{
+				UserUID:  "",
                 AppleID:  claims.Sub,
                 Username: claims.Email,
             }
+			user.EnsureUID()
             if err := db.Create(&user).Error; err != nil {
                 c.JSON(http.StatusInternalServerError, map[string]string{"error": "创建用户失败"})
                 return
@@ -123,6 +125,26 @@ func SendSMSCodeHandler() app.HandlerFunc {
             return
         }
 
+		guardVal, ok := c.Get("smsGuard")
+		if !ok {
+			c.JSON(http.StatusInternalServerError, map[string]string{"error": "服务器配置错误"})
+			return
+		}
+		guard, ok := guardVal.(auth.SMSGuard)
+		if !ok {
+			c.JSON(http.StatusInternalServerError, map[string]string{"error": "短信安全配置错误"})
+			return
+		}
+		allowed, message, err := guard.AllowSend(ctx, req.PhoneNumber)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, map[string]string{"error": "发送频控失败"})
+			return
+		}
+		if !allowed {
+			c.JSON(http.StatusTooManyRequests, map[string]string{"error": message})
+			return
+		}
+
 		smsStoreVal, ok := c.Get("smsStore")
 		if !ok {
 			c.JSON(http.StatusInternalServerError, map[string]string{"error": "服务器配置错误"})
@@ -160,6 +182,7 @@ func SendSMSCodeHandler() app.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, map[string]string{"error": "发送短信失败"})
 			return
 		}
+		_ = guard.RecordSend(ctx, req.PhoneNumber)
 
         c.JSON(http.StatusOK, response{Success: true, Message: "验证码已发送"})
     }
@@ -190,6 +213,26 @@ func VerifySMSCodeHandler(jwtSecret string) app.HandlerFunc {
             c.JSON(http.StatusBadRequest, map[string]string{"error": "手机号格式不合法"})
             return
         }
+
+		guardVal, ok := c.Get("smsGuard")
+		if !ok {
+			c.JSON(http.StatusInternalServerError, map[string]string{"error": "服务器配置错误"})
+			return
+		}
+		guard, ok := guardVal.(auth.SMSGuard)
+		if !ok {
+			c.JSON(http.StatusInternalServerError, map[string]string{"error": "短信安全配置错误"})
+			return
+		}
+		allowed, message, err := guard.AllowVerify(ctx, req.PhoneNumber)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, map[string]string{"error": "校验频控失败"})
+			return
+		}
+		if !allowed {
+			c.JSON(http.StatusTooManyRequests, map[string]string{"error": message})
+			return
+		}
 
 		smsStoreVal, ok := c.Get("smsStore")
 		if !ok {
@@ -224,9 +267,11 @@ func VerifySMSCodeHandler(jwtSecret string) app.HandlerFunc {
         }
 
 		if stored != req.Code {
+			_, _ = guard.RecordVerifyFailure(ctx, req.PhoneNumber)
 			c.JSON(http.StatusBadRequest, map[string]string{"error": "验证码错误"})
 			return
 		}
+		_ = guard.ResetVerifyFailures(ctx, req.PhoneNumber)
 
         // 验证成功后删除验证码
 		_ = smsStore.Delete(ctx, req.PhoneNumber)
@@ -235,9 +280,11 @@ func VerifySMSCodeHandler(jwtSecret string) app.HandlerFunc {
 		if err := db.Where("phone_number = ?", req.PhoneNumber).First(&user).Error; err != nil {
             // 若用户不存在则自动注册
             user = models.User{
+				UserUID:      "",
                 PhoneNumber: req.PhoneNumber,
                 Username:    req.PhoneNumber,
             }
+			user.EnsureUID()
 			if err := db.Create(&user).Error; err != nil {
                 c.JSON(http.StatusInternalServerError, map[string]string{"error": "创建用户失败"})
                 return

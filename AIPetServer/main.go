@@ -163,6 +163,12 @@ func main() {
 
 	db := mustInitDB(cfg)
 	smsStore := initSMSStore(cfg)
+	var smsGuard auth.SMSGuard
+	if rs, ok := smsStore.(*auth.RedisCodeStore); ok {
+		smsGuard = auth.NewRedisSMSGuard(rs.Client())
+	} else {
+		smsGuard = auth.NewMemorySMSGuard()
+	}
 	smsSender := initSMSSender(cfg)
 	semanticCache := cache.NewSemanticCache()
 	pushService := push.NewPushService(db, cfg)
@@ -179,6 +185,7 @@ func main() {
 	h.Use(func(ctx context.Context, c *app.RequestContext) {
 		c.Set("db", db)
 		c.Set("smsStore", smsStore)
+		c.Set("smsGuard", smsGuard)
 		c.Set("smsSender", smsSender)
 		c.Set("semanticCache", semanticCache)
 		c.Set("pushService", pushService)
@@ -192,6 +199,16 @@ func main() {
 	h.GET("/health", func(ctx context.Context, c *app.RequestContext) {
 		c.JSON(200, utils.H{"status": "ok"})
 	})
+
+	{
+		var users []models.User
+		if err := db.Where("user_uid = ''").Find(&users).Error; err == nil {
+			for i := range users {
+				users[i].EnsureUID()
+				_ = db.Model(&models.User{}).Where("id = ?", users[i].ID).Update("user_uid", users[i].UserUID).Error
+			}
+		}
+	}
 
 	handlers.RegisterAuthRoutes(h, cfg.JWTSecret)
 	handlers.RegisterMembershipRoutes(h, cfg.JWTSecret)

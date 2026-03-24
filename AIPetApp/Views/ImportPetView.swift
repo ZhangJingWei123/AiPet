@@ -448,7 +448,7 @@ struct ImportPetView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 160, height: 160)
-                        .foregroundStyle(.accentColor)
+                        .foregroundStyle(Color.accentColor)
                 }
             }
             .scaleEffect(appearScale)

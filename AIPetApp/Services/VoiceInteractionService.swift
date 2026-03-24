@@ -30,7 +30,6 @@ final class VoiceInteractionService: NSObject, ObservableObject {
 
     override init() {
         super.init()
-        configureAudioSession()
     }
 
     // MARK: - Public API
@@ -60,6 +59,12 @@ final class VoiceInteractionService: NSObject, ObservableObject {
         recognitionRequest = nil
         recognitionTask = nil
 
+        do {
+            try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("停用音频会话失败: \(error)")
+        }
+
         DispatchQueue.main.async {
             self.isRunning = false
             self.transcribedText = nil
@@ -69,6 +74,8 @@ final class VoiceInteractionService: NSObject, ObservableObject {
     // MARK: - Internal setup
 
     private func startInternal() {
+        configureAudioSessionIfNeeded()
+
         let inputNode = audioEngine.inputNode
 
         let request = SFSpeechAudioBufferRecognitionRequest()
@@ -112,12 +119,12 @@ final class VoiceInteractionService: NSObject, ObservableObject {
         }
     }
 
-    private func configureAudioSession() {
+    private func configureAudioSessionIfNeeded() {
         let session = AVAudioSession.sharedInstance()
         do {
             try session.setCategory(.playAndRecord, options: [.duckOthers, .defaultToSpeaker, .allowBluetooth])
             try session.setMode(.voiceChat)
-            try session.setActive(true, options: .notifyOthersOnDeactivation)
+            try session.setActive(true)
         } catch {
             print("配置音频会话失败: \(error)")
         }

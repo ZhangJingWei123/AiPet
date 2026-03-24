@@ -28,7 +28,7 @@ final class Pet {
     ///
     /// 注意：高级性格 DNA（如 isSnarkyGenius）仍然通过 PersonalityDNA 表达；
     /// 这里的人格是一个更“表层”的对话风格开关，便于一键切换。
-    var personality: Personality = .gentle
+    var personality: Personality = Pet.Personality.gentle
 
     /// 绑定的性格 DNA
     @Relationship var personalityDNA: PersonalityDNA?
@@ -50,7 +50,7 @@ final class Pet {
         energy: Int = 50,
         sociability: Int = 50,
         independence: Int = 50,
-        personality: Personality = .gentle,
+        personality: Personality = Pet.Personality.gentle,
         personalityDNA: PersonalityDNA? = nil,
         home: Home? = nil
     ) {

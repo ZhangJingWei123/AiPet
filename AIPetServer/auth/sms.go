@@ -91,6 +91,10 @@ func NewRedisCodeStore(client *redis.Client) *RedisCodeStore {
     return &RedisCodeStore{client: client}
 }
 
+func (s *RedisCodeStore) Client() *redis.Client {
+    return s.client
+}
+
 func (s *RedisCodeStore) Set(ctx context.Context, phone, code string, ttl time.Duration) error {
     return s.client.Set(ctx, phone, code, ttl).Err()
 }
@@ -170,4 +174,3 @@ func (s *TencentSMSSender) SendCode(ctx context.Context, phone, code string) err
     _, err := s.client.SendSmsWithContext(ctx, req)
     return err
 }
-

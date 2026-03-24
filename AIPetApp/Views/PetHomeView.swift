@@ -63,9 +63,10 @@ struct PetHomeView: View {
     }
 
     private func loadMemories() {
+        let petID = pet.id
         let descriptor = FetchDescriptor<MemoryEntry>(
             predicate: #Predicate { entry in
-                entry.petID == pet.id
+                entry.petID == petID
             },
             sortBy: [
                 SortDescriptor(\.importance, order: .reverse),
@@ -386,22 +387,33 @@ struct EmotionMeshBackground: View {
     let pet: Pet
 
     var body: some View {
-        TimelineView(.animation) { context in
-            let t = context.date.timeIntervalSinceReferenceDate
-            let phase = sin(t / 4.0)
-
-            let colors = palette
-            let positions = animatedPositions(phase: phase)
-
-            MeshGradient(
-                colors: colors,
-                positions: positions
-            )
-            // 根据能量做轻微色相偏移，高能量更偏暖，低能量偏冷
-            .hueRotation(.degrees(hueOffset))
-            .opacity(0.9)
-            .blur(radius: 42)
-            .ignoresSafeArea()
+        Group {
+            if #available(iOS 18.0, *) {
+                TimelineView(.animation) { context in
+                    MeshGradient(
+                        width: 3,
+                        height: 3,
+                        points: animatedPoints(phase: sin(context.date.timeIntervalSinceReferenceDate / 4.0)),
+                        colors: meshColors
+                    )
+                    .hueRotation(.degrees(hueOffset))
+                    .opacity(0.9)
+                    .blur(radius: 42)
+                    .ignoresSafeArea()
+                }
+            } else {
+                TimelineView(.animation) { context in
+                    LinearGradient(
+                        colors: palette,
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .hueRotation(.degrees(hueOffset + sin(context.date.timeIntervalSinceReferenceDate / 4.0) * 4.0))
+                    .opacity(0.9)
+                    .blur(radius: 42)
+                    .ignoresSafeArea()
+                }
+            }
         }
     }
 
@@ -450,17 +462,22 @@ struct EmotionMeshBackground: View {
         }
     }
 
-    /// Mesh 控制点位置：随时间轻微摆动，营造流动感
-    private func animatedPositions(phase: Double) -> [SIMD2<Double>] {
-        // phase ∈ [-1, 1]，转换为一个小的偏移量
-        let d = 0.04 * phase
-
+    private var meshColors: [Color] {
+        let c = palette
+        guard c.count >= 5 else { return Array(repeating: .gray, count: 9) }
         return [
-            SIMD2(0.15 + d, 0.05),
-            SIMD2(0.85 - d, 0.1 + d),
-            SIMD2(0.1, 0.6 - d),
-            SIMD2(0.9, 0.7 + d),
-            SIMD2(0.5 + d, 0.95)
+            c[0], c[1], c[2],
+            c[1], c[2], c[3],
+            c[2], c[3], c[4]
+        ]
+    }
+
+    private func animatedPoints(phase: Double) -> [SIMD2<Float>] {
+        let d = Float(0.04 * phase)
+        return [
+            SIMD2(0.00 + d, 0.00), SIMD2(0.50, 0.00 + d), SIMD2(1.00 - d, 0.00),
+            SIMD2(0.00, 0.50 - d), SIMD2(0.50 + d, 0.50), SIMD2(1.00, 0.50 + d),
+            SIMD2(0.00 + d, 1.00), SIMD2(0.50, 1.00 - d), SIMD2(1.00 - d, 1.00)
         ]
     }
 

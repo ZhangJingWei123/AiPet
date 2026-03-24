@@ -100,12 +100,25 @@ final class CalendarService {
         case .authorized:
             break
         case .notDetermined:
-            let granted = try await withCheckedThrowingContinuation { continuation in
-                eventStore.requestAccess(to: .event) { granted, error in
-                    if let error {
-                        continuation.resume(throwing: error)
-                    } else {
-                        continuation.resume(returning: granted)
+            let granted: Bool
+            if #available(iOS 17.0, *) {
+                granted = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Bool, Error>) in
+                    eventStore.requestFullAccessToEvents { granted, error in
+                        if let error {
+                            continuation.resume(throwing: error)
+                        } else {
+                            continuation.resume(returning: granted)
+                        }
+                    }
+                }
+            } else {
+                granted = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Bool, Error>) in
+                    eventStore.requestAccess(to: .event) { granted, error in
+                        if let error {
+                            continuation.resume(throwing: error)
+                        } else {
+                            continuation.resume(returning: granted)
+                        }
                     }
                 }
             }
@@ -123,7 +136,11 @@ final class CalendarService {
         case .authorized:
             break
         case .notDetermined:
-            eventStore.requestAccess(to: .reminder) { _, _ in }
+            if #available(iOS 17.0, *) {
+                eventStore.requestFullAccessToReminders { _, _ in }
+            } else {
+                eventStore.requestAccess(to: .reminder) { _, _ in }
+            }
         case .denied, .restricted:
             break
         @unknown default:

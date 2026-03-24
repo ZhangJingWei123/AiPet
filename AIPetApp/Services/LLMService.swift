@@ -339,7 +339,7 @@ private struct ChatCompletionChunk: Decodable {
                 if let text = try? container.decodeIfPresent(String.self, forKey: .content) {
                     self.content = text
                 } else if let parts = try? container.decodeIfPresent([ContentPart].self, forKey: .content) {
-                    let allText = parts?.compactMap { $0.text }.joined()
+                    let allText = parts.compactMap { $0.text }.joined()
                     self.content = allText
                 } else {
                     self.content = nil

@@ -1,13 +1,19 @@
 package models
 
-import "time"
+import (
+    "crypto/rand"
+    "encoding/base32"
+    "strings"
+    "time"
+)
 
 // User 用户模型
 // 使用 GORM 映射到 PostgreSQL
 type User struct {
 	ID          uint      `gorm:"primaryKey" json:"id"`
-	AppleID     string    `gorm:"uniqueIndex;size:128" json:"apple_id"`
-	PhoneNumber string    `gorm:"uniqueIndex;size:32" json:"phone_number"`
+	UserUID     string    `gorm:"size:32;uniqueIndex:idx_users_user_uid,where:user_uid <> ''" json:"user_uid"`
+	AppleID     string    `gorm:"size:128;uniqueIndex:idx_users_apple_id,where:apple_id <> ''" json:"apple_id"`
+	PhoneNumber string    `gorm:"size:32;uniqueIndex:idx_users_phone_number,where:phone_number <> ''" json:"phone_number"`
 	Username    string    `gorm:"size:64" json:"username"`
 	AvatarURL   string    `gorm:"size:256" json:"avatar_url"`
 	CreatedAt   time.Time `json:"created_at"`
@@ -19,6 +25,19 @@ type User struct {
 	// 会员相关字段
 	IsPlusMember  bool       `gorm:"not null;default:false" json:"is_plus_member"`
 	PlusExpiresAt *time.Time `json:"plus_expires_at"`
+}
+
+func (u *User) EnsureUID() {
+    if u.UserUID != "" {
+        return
+    }
+    b := make([]byte, 16)
+    if _, err := rand.Read(b); err != nil {
+        return
+    }
+    enc := base32.StdEncoding.WithPadding(base32.NoPadding)
+    v := strings.ToLower(enc.EncodeToString(b))
+    u.UserUID = "u_" + v
 }
 
 // IsPlusActive 当前时间下该用户是否处于有效的 Plus 会员状态

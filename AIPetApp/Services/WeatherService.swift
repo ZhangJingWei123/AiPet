@@ -39,9 +39,9 @@ final class AppWeatherService: NSObject {
             conditionText = "阴天"
         case .rain, .heavyRain, .drizzle, .isolatedThunderstorms, .scatteredThunderstorms, .strongStorms, .thunderstorms:
             conditionText = "正在下雨"
-        case .snow, .heavySnow, .flurries, .sleet, .mixedRainAndSnow, .blizzard:
+        case .snow, .heavySnow, .flurries, .sleet, .blizzard:
             conditionText = "下雪"
-        case .fog, .haze, .smoke:
+        case .haze:
             conditionText = "有雾"
         case .windy, .breezy:
             conditionText = "有风"
@@ -107,4 +107,3 @@ enum WeatherServiceError: Error {
     case locationDenied
     case noLocation
 }
-

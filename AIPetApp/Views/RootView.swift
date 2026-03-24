@@ -128,7 +128,7 @@ struct PetSwitcherView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
-                ForEach(pets, id: \._persistentModelID) { pet in
+                ForEach(pets, id: \.id) { pet in
                     Button {
                         selectedPetID = pet.id
                     } label: {

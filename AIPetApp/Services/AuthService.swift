@@ -41,8 +41,46 @@ final class AuthService: ObservableObject {
 
     // MARK: - 配置
 
-    /// 后端基础地址（预留占位符，接入真实后端时修改）
-    private let apiBaseURL = URL(string: "https://api.example.com")! // TODO: 替换为真实 API_BASE_URL
+    private let apiBaseURL: URL = {
+        if let v = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String,
+           let url = URL(string: v.trimmingCharacters(in: .whitespacesAndNewlines)),
+           url.scheme != nil {
+            return url
+        }
+        return URL(string: "https://aipet-is7f.onrender.com")!
+    }()
+
+    private let apiV1PathPrefix = "v1"
+
+    private func apiURL(path: String) -> URL {
+        let trimmed = path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        return apiBaseURL.appendingPathComponent(apiV1PathPrefix).appendingPathComponent(trimmed)
+    }
+
+    private func data(for request: URLRequest) async throws -> (Data, URLResponse) {
+        do {
+            return try await URLSession.shared.data(for: request)
+        } catch {
+            if let urlError = error as? URLError {
+                let host = request.url?.host ?? apiBaseURL.host ?? ""
+                switch urlError.code {
+                case .cannotFindHost:
+                    errorMessage = "无法解析服务器域名（\(host)），请检查网络或稍后重试。"
+                case .cannotConnectToHost:
+                    errorMessage = "无法连接服务器（\(host)），请检查网络或稍后重试。"
+                case .timedOut:
+                    errorMessage = "连接服务器超时（\(host)），请稍后重试。"
+                case .notConnectedToInternet:
+                    errorMessage = "当前网络不可用，请检查网络连接后重试。"
+                default:
+                    errorMessage = urlError.localizedDescription
+                }
+            } else {
+                errorMessage = error.localizedDescription
+            }
+            throw error
+        }
+    }
 
     private let keychainService = "com.aipet.app.auth"
     private let tokenKey = "jwt_token"
@@ -84,19 +122,26 @@ final class AuthService: ObservableObject {
         defer { isLoading = false }
 
         struct RequestBody: Encodable { let identityToken: String }
-        struct ResponseBody: Decodable { let token: String }
 
-        let url = apiBaseURL.appendingPathComponent("/auth/apple")
+        struct ResponseBody: Decodable {
+            let accessToken: String
+            let tokenType: String
+            let expiresIn: Int64
+        }
+
+        let url = apiURL(path: "/auth/apple")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(RequestBody(identityToken: identityToken))
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await data(for: request)
         try handleCommonHTTPError(response: response, data: data)
 
-        let decoded = try JSONDecoder().decode(ResponseBody.self, from: data)
-        try persistToken(decoded.token)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let decoded = try decoder.decode(ResponseBody.self, from: data)
+        try persistToken(decoded.accessToken)
     }
 
     /// 发送手机验证码
@@ -107,13 +152,15 @@ final class AuthService: ObservableObject {
 
         struct RequestBody: Encodable { let phoneNumber: String }
 
-        let url = apiBaseURL.appendingPathComponent("/auth/sms/send")
+        let url = apiURL(path: "/auth/sms/send")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(RequestBody(phoneNumber: phoneNumber))
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        request.httpBody = try encoder.encode(RequestBody(phoneNumber: phoneNumber))
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await data(for: request)
         try handleCommonHTTPError(response: response, data: data)
 
         // 一般只需要确认 200 / 204 即可，这里不解析内容
@@ -130,19 +177,28 @@ final class AuthService: ObservableObject {
             let phoneNumber: String
             let code: String
         }
-        struct ResponseBody: Decodable { let token: String }
 
-        let url = apiBaseURL.appendingPathComponent("/auth/sms/verify")
+        struct ResponseBody: Decodable {
+            let accessToken: String
+            let tokenType: String
+            let expiresIn: Int64
+        }
+
+        let url = apiURL(path: "/auth/sms/verify")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(RequestBody(phoneNumber: phoneNumber, code: code))
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        request.httpBody = try encoder.encode(RequestBody(phoneNumber: phoneNumber, code: code))
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await data(for: request)
         try handleCommonHTTPError(response: response, data: data)
 
-        let decoded = try JSONDecoder().decode(ResponseBody.self, from: data)
-        try persistToken(decoded.token)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let decoded = try decoder.decode(ResponseBody.self, from: data)
+        try persistToken(decoded.accessToken)
     }
 
     /// 主动注销
@@ -174,8 +230,13 @@ final class AuthService: ObservableObject {
             try await handlePurchaseResult(result)
         } catch {
             // 用户手动取消不视为错误
-            if let skError = error as? StoreKitError, skError == .userCancelled {
+            if error is CancellationError {
                 return
+            }
+            if let skError = error as? StoreKitError {
+                if case StoreKitError.userCancelled = skError {
+                    return
+                }
             }
             lastPurchaseErrorMessage = "发起购买失败：" + error.localizedDescription
             throw error
@@ -189,7 +250,7 @@ final class AuthService: ObservableObject {
             throw AuthError.tokenExpired
         }
 
-        let url = apiBaseURL.appendingPathComponent(path)
+        let url = apiURL(path: path)
         var request = URLRequest(url: url)
         request.httpMethod = method
         if let body = body {
@@ -404,7 +465,7 @@ final class AuthService: ObservableObject {
     private func handleTransactionVerification(_ verification: VerificationResult<Transaction>) async throws {
         switch verification {
         case .unverified(_, let error):
-            let message = error?.localizedDescription ?? "订单校验失败"
+            let message = error.localizedDescription
             lastPurchaseErrorMessage = message
             throw AuthError.serverError(code: -2, message: message)
         case .verified(let transaction):
